@@ -1,0 +1,27 @@
+---
+interface Props {
+  /** How many "Aein." words per half of the loop. */
+  repeat?: number;
+}
+
+const { repeat = 14 } = Astro.props;
+const words = Array.from({ length: repeat });
+---
+
+<section class="relative overflow-hidden py-7 sm:py-9" aria-hidden="true">
+  <div
+    class="band -mx-[8%] flex w-[116%] rotate-[-3.5deg] items-center py-[0.7rem] shadow-[0_18px_50px_-30px_rgba(0,0,0,0.9)] sm:py-[0.95rem]"
+  >
+    <div class="band-track">
+      {
+        [0, 1].map((half) => (
+          <div class="flex shrink-0 items-center">
+            {words.map(() => (
+              <span class="band-word px-[1.6rem] text-[clamp(1.75rem,3.3vw,3rem)] sm:px-[2.4rem]">Aein.</span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

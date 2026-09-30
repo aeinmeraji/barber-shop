@@ -1,0 +1,59 @@
+---
+import type { IconName } from '../data/site';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  strokeWidth?: number;
+  class?: string;
+}
+
+const { name, size = 22, strokeWidth = 1.4, class: className = '' } = Astro.props;
+
+const paths: Record<IconName, string> = {
+  scissors:
+    '<circle cx="6.2" cy="6.4" r="2.6"/><circle cx="6.2" cy="17.6" r="2.6"/><path d="M8.4 8.2 20 18.4M8.4 15.8 20 5.6"/>',
+  razor:
+    '<path d="M20.4 3.6 12 5.9l6.1 6.1z" fill="currentColor"/><path d="M12 5.9 4.6 13.3a1.2 1.2 0 0 0 0 1.7l4.4 4.4a1.2 1.2 0 0 0 1.7 0l8.4-8.4"/>',
+  beard:
+    '<path d="M6 6.2v5.6c0 4.6 2.7 8.2 6 9.4 3.3-1.2 6-4.8 6-9.4V6.2"/><path d="M9.4 12.6c1.5 1.5 3.7 1.5 5.2 0"/><path d="M9.6 9.4c1-1 1.6-1 2.4 0 .8-1 1.4-1 2.4 0"/>',
+  drop:
+    '<path d="M12 3.4c3.3 3.7 5.6 6.5 5.6 9.5a5.6 5.6 0 0 1-11.2 0C6.4 9.9 8.7 7.1 12 3.4Z"/><path d="M9.6 13.6a2.9 2.9 0 0 0 2.5 2.7"/>',
+  towels:
+    '<rect x="3.4" y="5" width="17.2" height="4.4" rx="2.2"/><rect x="3.4" y="10.4" width="17.2" height="4.4" rx="2.2"/><rect x="3.4" y="15.8" width="17.2" height="4.4" rx="2.2"/>',
+  crown:
+    '<path d="M3.4 15.6 2.6 7.4l5.3 3.2L12 5.2l4.1 5.4 5.3-3.2-.8 8.2z"/><path d="M4.2 18.6h15.6"/>',
+  pin: '<path d="M12 21.2s6.9-6.3 6.9-11a6.9 6.9 0 1 0-13.8 0c0 4.7 6.9 11 6.9 11Z"/><circle cx="12" cy="10.1" r="2.5"/>',
+  phone:
+    '<path d="M5.4 3.7h3.2l1.6 4-2.1 1.5a11.6 11.6 0 0 0 5.7 5.7l1.5-2.1 4 1.6v3.2a1.9 1.9 0 0 1-2 1.9A15.7 15.7 0 0 1 3.5 5.7a1.9 1.9 0 0 1 1.9-2Z"/>',
+  mail: '<rect x="3" y="5.4" width="18" height="13.2" rx="2.4"/><path d="m3.8 6.9 8.2 6.1 8.2-6.1"/>',
+  person: '<circle cx="12" cy="8.1" r="3.6"/><path d="M5 19.9c.9-3.6 3.6-5.5 7-5.5s6.1 1.9 7 5.5"/>',
+  briefcase:
+    '<rect x="3" y="7.4" width="18" height="12.2" rx="2.4"/><path d="M9 7.4V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.4"/><path d="M3 12.6h18"/>',
+  instagram:
+    '<rect x="3.6" y="3.6" width="16.8" height="16.8" rx="5"/><circle cx="12" cy="12" r="3.9"/><circle cx="16.9" cy="7.1" r="1.1" fill="currentColor" stroke="none"/>',
+  calendar: '<rect x="3.5" y="5.4" width="17" height="15.1" rx="2.6"/><path d="M3.5 10.2h17M8 3.5v3.8M16 3.5v3.8"/>',
+  document:
+    '<path d="M6.6 3.6h6.6l5.2 5.2v10a1.6 1.6 0 0 1-1.6 1.6H6.6A1.6 1.6 0 0 1 5 18.8V5.2a1.6 1.6 0 0 1 1.6-1.6Z"/><path d="M13.2 3.6v5.2h5.2"/><path d="M8.4 13h7M8.4 16.4h4.4"/>',
+  'chevron-right': '<path d="m9.7 5.6 6.4 6.4-6.4 6.4"/>',
+  'arrow-right': '<path d="M4.6 12h13.8M12.9 6.6 18.3 12l-5.4 5.4"/>',
+  'paper-plane': '<path d="M21 3.6 10.6 14M21 3.6l-6.4 17-4.1-6.5-6.5-4.1z"/>',
+  menu: '<path d="M4 7.2h16M4 12h16M4 16.8h16"/>',
+  close: '<path d="M6.4 6.4l11.2 11.2M17.6 6.4 6.4 17.6"/>',
+};
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  aria-hidden="true"
+  set:html={paths[name]}
+/>

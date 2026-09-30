@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Marquee from '../components/Marquee.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Icon from '../components/Icon.astro';
+import { services, site, footerHome } from '../data/site';
+
+const contactRows = [
+  { icon: 'pin', label: 'Location', value: site.location, href: null },
+  { icon: 'phone', label: 'Phone', value: site.phone, href: site.phoneHref },
+  { icon: 'mail', label: 'Email', value: site.email, href: site.emailHref },
+] as const;
+---
+
+<BaseLayout
+  title="Aein Barbers — A Premium Grooming Experience"
+  description="Aein Barbers: classic haircuts, skin fades, beard trims, hot towel shaves and full grooming packages in the Downtown District, Main Street. Call 0915 880 6772."
+>
+  <Header active="home" />
+
+  <main id="main">
+    <!-- ============ Home ============ -->
+    <section id="home" class="px-[2.15%] pt-[7.6rem]">
+      <div class="mx-auto grid max-w-[1600px] gap-4 sm:gap-5 lg:grid-cols-[35.7fr_62.3fr]">
+        <!-- square photo, left -->
+        <figure class="photo-frame relative aspect-[348/320] w-full" data-reveal>
+          <img
+            src="/images/home-hero-left.jpg"
+            alt="Barber chair, mirror and wooden counter inside the Aein Barbers shop"
+            class="h-full w-full object-cover"
+            data-parallax="3"
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+
+        <!-- wide photo with the headline, right -->
+        <div class="photo-frame relative min-h-[20rem] lg:min-h-0" data-reveal data-reveal-delay="0.08">
+          <img
+            src="/images/home-hero-right.jpg"
+            alt="Inside the Aein Barbers shop: leather sofa, booth and warm lighting"
+            class="absolute inset-0 h-full w-full scale-110 object-cover opacity-55 blur-[8px]"
+            data-parallax="3"
+            loading="eager"
+            decoding="async"
+          />
+          <div class="absolute inset-0 bg-ink/60"></div>
+
+          <div class="relative flex h-full flex-col justify-end px-[4.5%] pb-[7%] pt-[12%]">
+            <p class="eyebrow">More than a haircut</p>
+            <h1
+              class="mt-4 max-w-[19ch] font-display text-[clamp(2.1rem,4.3vw,4.1rem)] font-normal leading-[1.06] text-cream"
+            >
+              A Premium Grooming Experience
+            </h1>
+            <span class="gold-rule mt-6"></span>
+            <p class="mt-5 max-w-[24ch] text-[clamp(0.85rem,1.05vw,1.05rem)] leading-[1.7] text-cream/85">
+              Sharp looks. Confident you. Modern cuts, timeless style.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- Location & Contact ---------- -->
+      <div
+        id="location"
+        class="mx-auto mt-12 grid max-w-[1600px] gap-8 sm:mt-14 lg:grid-cols-[51fr_49fr] lg:gap-0"
+      >
+        <figure class="photo-frame relative aspect-[496/188] w-full lg:mr-[4%]" data-reveal>
+          <img
+            src="/images/home-map.jpg"
+            alt="Map of the Downtown District showing the Aein Barbers location on Main Street"
+            class="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <div
+          class="flex flex-col justify-center lg:border-l lg:border-gold/25 lg:pl-[5%]"
+          data-reveal
+          data-reveal-delay="0.06"
+        >
+          <h2 class="font-display text-[clamp(1.85rem,3.9vw,3.3rem)] leading-[1.1] text-cream">
+            Location &amp; Contact
+          </h2>
+
+          <ul class="mt-6 space-y-5">
+            {
+              contactRows.map((row) => (
+                <li class="flex items-center gap-4">
+                  <span class="icon-chip grid h-11 w-11 shrink-0 place-items-center rounded-full">
+                    <Icon name={row.icon} size={19} />
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block text-[0.72rem] tracking-[0.12em] text-gold-light">{row.label}</span>
+                    {row.href ? (
+                      <a
+                        href={row.href}
+                        class="block truncate text-[clamp(0.95rem,1.15vw,1.15rem)] text-cream transition-colors duration-300 hover:text-gold-light"
+                      >
+                        {row.value}
+                      </a>
+                    ) : (
+                      <span class="block text-[clamp(0.95rem,1.15vw,1.15rem)] text-cream">
+                        {row.value}
+                      </span>
+                    )}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- infinite "Aein." band -->
+    <Marquee />
+
+    <!-- ============ Services ============ -->
+    <section id="services" class="relative overflow-hidden">
+      <img
+        src="/images/services-bg.jpg"
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 h-full w-full scale-110 object-cover opacity-55 blur-[8px]"
+        loading="lazy"
+        decoding="async"
+      />
+      <div
+        class="pointer-events-none absolute inset-0 bg-ink/60"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="relative mx-auto grid max-w-[1600px] gap-10 px-[2.15%] pt-8 pb-3 lg:grid-cols-[39fr_58fr] lg:gap-x-[2%] lg:pt-4 lg:pb-2"
+      >
+        <div class="flex flex-col items-start lg:pl-[6%] lg:pt-[6.25rem]" data-reveal>
+          <p class="eyebrow">Men&rsquo;s Grooming</p>
+          <div class="mt-3 flex flex-col items-center">
+            <h2 class="font-display text-[clamp(2.6rem,6.3vw,5.6rem)] leading-[0.98] text-cream">
+              Services
+            </h2>
+            <span class="gold-rule mt-5"></span>
+          </div>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-x-[2%] lg:gap-y-[2.3vw]">
+          {
+            services.map((service, index) => (
+              <ServiceCard service={service} delay={(index % 2) * 0.08} />
+            ))
+          }
+        </div>
+      </div>
+
+      <Footer links={footerHome} />
+    </section>
+  </main>
+</BaseLayout>

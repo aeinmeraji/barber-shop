@@ -1,0 +1,323 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ *
+ *  Design tokens — sampled from the reference mockups in /tarahi
+ * ------------------------------------------------------------------ */
+@theme {
+  --font-display: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-body: 'Jost', ui-sans-serif, system-ui, sans-serif;
+  --font-script: 'Great Vibes', 'Segoe Script', cursive;
+
+  --color-ink: #0b0907;
+  --color-ink-2: #100e0b;
+  --color-panel: #1b1713;
+  --color-gold: #c9a46b;
+  --color-gold-light: #e6c795;
+  --color-gold-deep: #8a6a44;
+  --color-cream: #f2ece1;
+  --color-muted: #a89c8b;
+
+  --radius-card: 1rem;
+  --radius-glass: 1.75rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  /* Lenis smooth scroll */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  /* Scroll reveal: hidden only when JS is available */
+  html.js [data-reveal] {
+    opacity: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0b0907;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #3a2f22;
+    border-radius: 99px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-deep);
+  }
+}
+
+@layer components {
+  /* Apple "liquid glass" navigation bar */
+  .glass-bar {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 44%, rgba(255, 255, 255, 0) 100%),
+      rgba(24, 20, 16, 0.4);
+    backdrop-filter: blur(26px) saturate(150%);
+    -webkit-backdrop-filter: blur(26px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.24),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+      0 18px 45px -22px rgba(0, 0, 0, 0.9);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+
+  .glass-bar[data-scrolled='true'] {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 60%),
+      rgba(15, 13, 10, 0.8);
+    border-color: rgba(201, 164, 107, 0.28);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 22px 50px -26px rgba(0, 0, 0, 0.95);
+  }
+
+  .brand-script {
+    background-image: linear-gradient(120deg, #b98d52 0%, #f2d9ac 46%, #c9a46b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-family: var(--font-script);
+    line-height: 0.9;
+  }
+
+  .nav-link {
+    position: relative;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    color: var(--color-cream);
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--color-gold-light);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -0.6rem;
+    height: 1.5px;
+    width: 0;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    transition: width 0.35s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 60%;
+  }
+
+  .nav-link.is-active {
+    color: var(--color-gold-light);
+  }
+
+  .nav-link.is-active::after {
+    width: 100%;
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 300;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: rgba(242, 236, 225, 0.86);
+  }
+
+  .gold-rule {
+    display: block;
+    height: 1.5px;
+    width: 4.5rem;
+    background: linear-gradient(90deg, var(--color-gold-deep), var(--color-gold-light));
+  }
+
+  .card-shell {
+    background: rgba(20, 17, 14, 0.72);
+    border: 1px solid rgba(201, 164, 107, 0.28);
+    border-radius: var(--radius-card);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: border-color 0.4s ease, background-color 0.4s ease;
+  }
+
+  .card-shell:hover {
+    border-color: rgba(201, 164, 107, 0.62);
+    background: rgba(28, 23, 19, 0.84);
+  }
+
+  .icon-chip {
+    background: radial-gradient(circle at 32% 28%, rgba(201, 164, 107, 0.34), rgba(201, 164, 107, 0.07) 70%);
+    border: 1px solid rgba(201, 164, 107, 0.4);
+    color: var(--color-gold-light);
+  }
+
+  .arrow-chip {
+    border: 1px solid rgba(201, 164, 107, 0.42);
+    color: var(--color-gold-light);
+    transition: background-color 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+  }
+
+  .card-shell:hover .arrow-chip {
+    background: rgba(201, 164, 107, 0.16);
+    border-color: rgba(201, 164, 107, 0.8);
+    transform: translateX(3px);
+  }
+
+  /* Infinite "Aein." band */
+  .band {
+    background: linear-gradient(90deg, #6f5334 0%, #93714a 18%, #ad8a5c 42%, #b8955f 52%, #a5813f 74%, #7a5a36 100%);
+    border-top: 1px solid rgba(214, 178, 122, 0.55);
+    border-bottom: 1px solid rgba(214, 178, 122, 0.45);
+  }
+
+  .band-track {
+    display: flex;
+    width: max-content;
+    animation: band-scroll 42s linear infinite;
+    will-change: transform;
+  }
+
+  .band-word {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: #4b3419;
+    text-shadow: 0 1px 0 rgba(255, 236, 201, 0.16);
+  }
+
+  /* Application form */
+  .field-label {
+    font-size: 0.8125rem;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: rgba(242, 236, 225, 0.88);
+  }
+
+  .field-control {
+    width: 100%;
+    background: rgba(28, 24, 20, 0.72);
+    border: 1px solid rgba(201, 164, 107, 0.24);
+    border-radius: 0.625rem;
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 0.9375rem;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .field-control::placeholder {
+    color: rgba(168, 156, 139, 0.72);
+  }
+
+  .field-control:hover {
+    border-color: rgba(201, 164, 107, 0.42);
+  }
+
+  .field-control:focus {
+    outline: none;
+    border-color: rgba(201, 164, 107, 0.75);
+    background: rgba(34, 28, 23, 0.85);
+  }
+
+  .field-control option {
+    background: #14110e;
+    color: var(--color-cream);
+  }
+
+  select.field-control {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9a46b' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='m6.5 9.5 5.5 5.5 5.5-5.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    background-size: 1.05rem;
+    padding-right: 2.4rem;
+  }
+
+  .btn-gold {
+    background: linear-gradient(180deg, #e8ca98 0%, #c9a46b 46%, #a8814c 100%);
+    color: #241a0e;
+    border: 1px solid rgba(255, 238, 205, 0.55);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 16px 35px -20px rgba(201, 164, 107, 0.9);
+    transition: filter 0.3s ease;
+  }
+
+  .btn-gold:hover {
+    filter: brightness(1.07);
+  }
+
+  .photo-frame {
+    border: 1px solid rgba(201, 164, 107, 0.34);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    background: #14110e;
+  }
+}
+
+@keyframes band-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .band-track {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

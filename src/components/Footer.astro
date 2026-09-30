@@ -1,0 +1,36 @@
+---
+interface Props {
+  links: { label: string; href: string }[];
+}
+
+const { links } = Astro.props;
+---
+
+<footer class="px-[2.15%] pb-6">
+  <div class="mx-auto max-w-[1600px]">
+    <div class="h-px w-full bg-gradient-to-r from-transparent via-gold/45 to-transparent"></div>
+
+    <div class="flex flex-col items-center gap-5 pt-5 sm:flex-row sm:justify-between">
+      <a href="/" class="text-center leading-none sm:text-left" aria-label="Aein Barbers — home">
+        <span class="brand-script block text-[1.7rem]">Aein</span>
+        <span
+          class="block text-[0.4rem] font-light text-cream/85"
+          style="letter-spacing:.55em; padding-left:.55em;">BARBERS</span
+        >
+      </a>
+
+      <nav class="flex flex-wrap items-center justify-center gap-x-7 gap-y-2" aria-label="Footer">
+        {
+          links.map((link) => (
+            <a
+              href={link.href}
+              class="font-display text-[0.95rem] text-cream/80 transition-colors duration-300 hover:text-gold-light"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </div>
+</footer>

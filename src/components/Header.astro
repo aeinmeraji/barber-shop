@@ -1,0 +1,88 @@
+خب ---
+import Icon from './Icon.astro';
+import { headerLeft, headerRight } from '../data/site';
+
+interface Props {
+  /** Which header link is highlighted — matches the mockups (Home on page 1, Barbers on page 2). */
+  active?: 'home' | 'barbers';
+}
+
+const { active = 'home' } = Astro.props;
+const links = [...headerLeft, { ...headerRight, section: undefined }];
+---
+
+<header class="fixed inset-x-0 top-[1.25rem] z-50 px-[2.15%]">
+  <div
+    class="glass-bar mx-auto flex h-[4.625rem] max-w-[1600px] items-center rounded-[2.6rem] px-5 sm:px-8 lg:px-12"
+    data-glass-bar
+  >
+    <!-- left links -->
+    <nav class="flex items-center gap-7 sm:gap-10" aria-label="Primary">
+      {
+        headerLeft.map((link) => (
+          <a
+            href={link.href}
+            class:list={['nav-link', { 'is-active': active === link.page }]}
+            data-nav-section={link.section}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- centred brand -->
+    <a
+      href="/"
+      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center leading-none"
+      aria-label="Aein Barbers — home"
+    >
+      <span class="brand-script block text-[2rem] sm:text-[2.35rem]">Aein</span>
+      <span
+        class="mt-[0.15rem] block text-[0.44rem] font-light text-cream/85 sm:text-[0.5rem]"
+        style="letter-spacing:.6em; padding-left:.6em;"
+      >
+        BARBERS
+      </span>
+    </a>
+
+    <!-- right link -->
+    <a
+      href={headerRight.href}
+      class:list={['nav-link ml-auto hidden sm:inline-block', { 'is-active': active === 'barbers' }]}
+    >
+      {headerRight.label}
+    </a>
+
+    <button
+      type="button"
+      class="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/35 text-gold-light sm:hidden"
+      data-nav-toggle
+      aria-controls="mobile-navigation"
+      aria-expanded="false"
+      aria-label="Open menu"
+    >
+      <Icon name="menu" size={20} />
+    </button>
+  </div>
+
+  <!-- mobile menu -->
+  <nav
+    id="mobile-navigation"
+    class="glass-bar mx-auto mt-2 hidden max-w-[1600px] flex-col gap-1 rounded-[1.6rem] px-5 py-3 sm:hidden"
+    data-nav-menu
+    aria-label="Mobile"
+  >
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          class="nav-link py-2"
+          class:list={[{ 'is-active': active === link.page }]}
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
